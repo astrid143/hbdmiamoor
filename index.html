@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensajito Para Mi Amorcito 💕</title>
+    <style>
+        /* --- IMPORTACIÓN DE FUENTES ROMÁNTICAS Y ESTÉTICAS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0c0206;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fondo ambiental profundo */
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 40%, #1f0511 0%, #0c0206 100%);
+            z-index: 1;
+        }
+
+        /* --- 1. PANTALLA DE INICIO (PORTADA BRILLANTE) --- */
+        #welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0c0206;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.8s;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .heart-container {
+            cursor: pointer;
+            animation: pulseHeart 1.8s infinite ease-in-out;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .heart-container:hover {
+            transform: scale(1.04);
+        }
+
+        .main-heart {
+            font-size: 100px;
+            filter: drop-shadow(0 0 25px rgba(255, 77, 121, 0.7));
+        }
+
+        /* Letras bonitas y brillantes en la portada */
+        .welcome-title {
+            font-family: 'Alex Brush', cursive;
+            font-size: 3.6rem;
+            color: #ffffff;
+            font-weight: 400;
+            line-height: 1.2;
+            text-shadow: 0 0 15px rgba(255, 77, 121, 0.6), 0 0 30px rgba(255, 77, 121, 0.3);
+        }
+
+        .tap-hint {
+            font-size: 0.75rem;
+            color: #b3a4a7;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 35px;
+            font-weight: 500;
+            animation: pulseText 2s infinite;
+        }
+
+        /* --- 2. CONTENIDO PRINCIPAL --- */
+        #main-content {
+            width: 100%;
+            max-width: 440px;
+            padding: 40px 24px;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+            display: none;
+        }
+
+        /* FOTO SUPERIOR FLOTANTE */
+        .art-box {
+            width: 100%;
+            border-radius: 26px;
+            overflow: hidden;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.6);
+            margin-bottom: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            animation: floatingArt 6s ease-in-out infinite;
+        }
+
+        .art-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* SECCIÓN CARTA DE TEXTO */
+        .text-card {
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        /* Título de la carta brillante y degradado */
+        .heading {
+            font-family: 'Alex Brush', cursive;
+            font-size: 3.4rem;
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #ffffff 30%, #ffb3c6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 8px rgba(255, 77, 121, 0.3));
+        }
+
+        .letter-p {
+            font-size: 1.12rem;
+            line-height: 1.75;
+            color: #e6dcde;
+            margin-bottom: 20px;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+        }
+
+        .letter-p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* SECCIÓN DEDICATORIA & REPRODUCTOR ABAJO */
+        .dedication-section {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        /* Texto de dedicatoria brillante */
+        .dedication-text {
+            font-family: 'Alex Brush', cursive;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: #ff4d79;
+            text-align: center;
+            text-shadow: 0 0 15px rgba(255, 77, 121, 0.5), 0 0 30px rgba(255, 77, 121, 0.2);
+        }
+
+        .player-card {
+            background: rgba(25, 12, 18, 0.75);
+            border: 1px solid rgba(255, 77, 121, 0.25);
+            border-radius: 22px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .vinyl-disc {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 2px solid #ff4d79;
+            overflow: hidden;
+            box-shadow: 0 0 12px rgba(255, 77, 121, 0.3);
+            flex-shrink: 0;
+        }
+
+        .vinyl-disc img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .rotate-vinyl {
+            animation: spinVinyl 11s linear infinite;
+        }
+
+        .track-info {
+            flex-grow: 1;
+        }
+
+        .track-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2px;
+            letter-spacing: 0.2px;
+        }
+
+        .track-artist {
+            font-size: 0.85rem;
+            color: #ff4d79;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff4d79, #ff80a0);
+            border-radius: 10px;
+            transition: width 0.1s linear;
+        }
+
+        .time-box {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #a69497;
+            margin-top: 5px;
+        }
+
+        .control-btn {
+            width: 42px;
+            height: 42px;
+            background: rgba(255, 77, 121, 0.1);
+            border: 1px solid rgba(255, 77, 121, 0.3);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .control-btn:hover {
+            background: #ff4d79;
+            border-color: #ff4d79;
+            transform: scale(1.05);
+        }
+
+        .icon-play {
+            width: 0; height: 0;
+            border-style: solid;
+            border-width: 6px 0 6px 11px;
+            border-color: transparent transparent transparent #ffffff;
+            margin-left: 3px;
+        }
+
+        .icon-pause {
+            width: 10px; height: 12px;
+            border-style: double;
+            border-width: 0px 0px 0px 10px;
+            border-color: #ffffff;
+        }
+
+        /* --- 3. EFECTO DE CORAZONES FLOTANTES --- */
+        .floating-heart {
+            position: fixed;
+            bottom: -50px;
+            color: rgba(255, 77, 121, 0.42);
+            font-size: 22px;
+            pointer-events: none;
+            z-index: 1;
+            animation: moveUp linear infinite;
+        }
+
+        /* --- ANIMACIONES KEYFRAMES --- */
+        @keyframes pulseHeart {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes pulseText {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        @keyframes spinVinyl {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes floatingArt {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-7px); }
+        }
+
+        @keyframes moveUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(var(--x-distance)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <div id="welcome-screen">
+        <div class="heart-container" id="enterBtn">
+            <div class="main-heart">💝</div>
+            <h1 class="welcome-title">Mensajito para mi amorcito</h1>
+        </div>
+        <p class="tap-hint">Toca el corazón para abrir ✨</p>
+    </div>
+
+    <div id="main-content">
+
+        <div class="art-box">
+            <img src="vgb.jpg" alt="Vagabond Art">
+        </div>
+
+        <div class="text-card">
+            <h1 class="heading">Feliz cumpleaños mi corazoncito 💕</h1>
+            
+            <p class="letter-p">
+                Feliz cumpleaños mi vida, eres mi hombre, mi novio, mi amor, mi todooo, 
+                me alegra mucho haberte conocido y poder estar así ahora, no me imaginaba llegar a tanto 
+                contigo, me haces muy feliz.
+            </p>
+            
+            <p class="letter-p">
+              Ahora que cumples años espero que logres todas las metas que te propongas, porque yo sé que eres capaz 
+              de cualquier cosa y quiero que sepas que siempre estaré para ti. Poder amarte es una de las mejores cosas 
+              que me han pasado, quiero hacerlo para siempreeee, solo los dos, juntos y enamorados. Te valoro, te aprecio 
+              y te amo como no tienes idea, gracias por ser mi amor, 
+              mi lugar seguro, eres un hombre increíble y te mereces todo lo bonito del mundo. Te amo mucho mi Heyner precioso 💕
+            </p>
+        </div>
+
+        <div class="dedication-section">
+            <p class="dedication-text">Te dedico esta canción porque te amo muchísimoo: </p>
+            
+            <div class="player-card">
+                <div class="vinyl-disc" id="vinylDisc">
+                    <img src="kali.png.png" alt="Mini Cover">
+                </div>
+                <div class="track-info">
+                    <div class="track-title">It's Just Us</div>
+                    <div class="track-artist">Kali Uchis</div>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <div class="time-box">
+                        <span id="currTime">0:00</span>
+                        <span id="maxTime">3:01</span>
+                    </div>
+                </div>
+                <div class="control-btn" id="playPauseBtn">
+                    <div class="icon-play" id="btnIcon"></div>
+                </div>
+                
+                <audio id="audioTrack" src="its-just-us.mp3.mp3" preload="auto"></audio>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const enterBtn = document.getElementById('enterBtn');
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const mainContent = document.getElementById('main-content');
+        
+        const audio = document.getElementById('audioTrack');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const btnIcon = document.getElementById('btnIcon');
+        const vinylDisc = document.getElementById('vinylDisc');
+        const progressBar = document.getElementById('progressBar');
+        const currTimeEl = document.getElementById('currTime');
+        const maxTimeEl = document.getElementById('maxTime');
+
+        // --- TRANSICIÓN DE APERTURA ---
+        enterBtn.addEventListener('click', () => {
+            welcomeScreen.style.opacity = '0';
+            welcomeScreen.style.visibility = 'hidden';
+            
+            mainContent.style.display = 'block';
+            setTimeout(() => {
+                mainContent.style.opacity = '1';
+                mainContent.style.transform = 'translateY(0)';
+            }, 50);
+
+            playAudio();
+            setInterval(spawnHeart, 450); // Generador continuo de corazones flotantes
+        });
+
+        // --- CONTROLES DEL REPRODUCTOR ---
+        function playAudio() {
+            audio.play().then(() => {
+                btnIcon.className = 'icon-pause';
+                vinylDisc.classList.add('rotate-vinyl');
+            }).catch(e => console.log("Audio esperando interacción del usuario"));
+        }
+
+        function pauseAudio() {
+            audio.pause();
+            btnIcon.className = 'icon-play';
+            vinylDisc.classList.remove('rotate-vinyl');
+        }
+
+        playPauseBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                playAudio();
+            } else {
+                pauseAudio();
+            }
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            if (audio.duration) {
+                const progress = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = progress + '%';
+
+                let mins = Math.floor(audio.currentTime / 60);
+                let secs = Math.floor(audio.currentTime % 60);
+                if (secs < 10) secs = '0' + secs;
+                currTimeEl.textContent = `${mins}:${secs}`;
+            }
+        });
+
+        audio.addEventListener('loadedmetadata', () => {
+            let totalMins = Math.floor(audio.duration / 60);
+            let totalSecs = Math.floor(audio.duration % 60);
+            if (totalSecs < 10) totalSecs = '0' + totalSecs;
+            maxTimeEl.textContent = `${totalMins}:${totalSecs}`;
+        });
+
+        // --- EFECTO DE LLUVIA DE CORAZONES ---
+        const heartStyles = ['❤️', '💖', '💕'];
+
+        function spawnHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            
+            heart.innerText = heartStyles[Math.floor(Math.random() * heartStyles.length)];
+            heart.style.left = Math.random() * 100 + "vw";
+            
+            const size = Math.random() * 15 + 13;
+            heart.style.fontSize = size + "px";
+            
+            const duration = Math.random() * 3 + 5; 
+            heart.style.animationDuration = duration + "s";
+            
+            const xDistance = (Math.random() * 140 - 70) + "px";
+            heart.style.setProperty('--x-distance', xDistance);
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+    </script>
+</body>
+</html>
